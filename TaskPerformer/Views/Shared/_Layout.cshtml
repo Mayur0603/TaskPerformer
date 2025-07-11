@@ -90,47 +90,53 @@
         var username = Context.Session.GetString("Username") ?? "";
         var email = Context.Session.GetString("Email") ?? "";
     }
-    <!-- 🔧 Edit Profile Modal -->
+    <!-- 🎨 Styled Edit Profile Modal with Double-Shade Background -->
     <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content shadow-lg border-0 rounded-2">
+        <div class="modal-dialog modal-dialog-centered modal-md">
+            <div class="modal-content shadow" style="background: linear-gradient(to right, #f0f2f5, #dce3ea); border-radius: 10px;">
+
                 <form asp-controller="Account" asp-action="EditProfile" method="post">
                     @Html.AntiForgeryToken()
 
-                    <div class="modal-header bg-primary text-white rounded-top-4">
-                        <h5 class="modal-title fw-semibold" id="editProfileModalLabel">👤 Edit Profile</h5>
+                    <div class="modal-header text-white" style="background: linear-gradient(to right, #1e3c72, #2a5298); border-top-left-radius: 10px; border-top-right-radius: 10px;">
+                        <h5 class="modal-title" id="editProfileModalLabel">👤 Edit Your Profile</h5>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
 
-                    <div class="modal-body px-5 py-4">
+                    <div class="modal-body px-4 py-3">
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <label for="FirstName" class="form-label fw-semibold">First Name</label>
-                                <input id="FirstName" name="FirstName" class="form-control form-control-lg rounded-3" value="@firstName" required />
+                                <label for="FirstName" class="form-label fw-semibold text-dark">First Name</label>
+                                <input id="FirstName" name="FirstName" value="@firstName" class="form-control border border-secondary rounded-1 shadow-sm" required />
                             </div>
+
                             <div class="col-md-6">
-                                <label for="LastName" class="form-label fw-semibold">Last Name</label>
-                                <input id="LastName" name="LastName" class="form-control form-control-lg rounded-3" value="@lastName" required />
+                                <label for="LastName" class="form-label fw-semibold text-dark">Last Name</label>
+                                <input id="LastName" name="LastName" value="@lastName" class="form-control border border-secondary rounded-1 shadow-sm" required />
                             </div>
+
                             <div class="col-md-6">
-                                <label for="Username" class="form-label fw-semibold">Username</label>
-                                <input id="Username" name="Username" class="form-control form-control-lg rounded-3" value="@username" required />
+                                <label for="Username" class="form-label fw-semibold text-dark">Username</label>
+                                <input id="Username" name="Username" value="@username" class="form-control border border-secondary rounded-1 shadow-sm" required />
                             </div>
+
                             <div class="col-md-6">
-                                <label for="Email" class="form-label fw-semibold">Email</label>
-                                <input id="Email" name="Email" type="email" class="form-control form-control-lg rounded-3" value="@email" required />
+                                <label for="Email" class="form-label fw-semibold text-dark">Email</label>
+                                <input id="Email" name="Email" type="email" value="@email" class="form-control border border-secondary rounded-1 shadow-sm" required />
                             </div>
                         </div>
                     </div>
 
-                    <div class="modal-footer d-flex justify-content-between px-5 py-3">
-                        <button type="button" class="btn btn-outline-secondary btn-lg px-4 rounded-pill" data-bs-dismiss="modal">❌ Cancel</button>
-                        <button type="submit" class="btn btn-success btn-lg px-4 rounded-pill">💾 Save Changes</button>
+                    <div class="modal-footer d-flex justify-content-between px-4 py-3" style="background: #f8f9fa; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
+                        <button type="button" class="btn btn-outline-secondary btn-sm px-4 border rounded-1" data-bs-dismiss="modal">❌ Cancel</button>
+                        <button type="submit" class="btn btn-primary btn-sm px-4 border rounded-1">💾 Save Changes</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+
+
 
 
     <footer class="border-top footer text-muted">
