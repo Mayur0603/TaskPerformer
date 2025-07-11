@@ -51,7 +51,9 @@
                                 🙋‍♂ @fullName   
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editProfileModal">Edit Profile</a> 
+                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editProfileModal">
+                                      Profile
+                                </a>
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
                                     <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
@@ -83,59 +85,52 @@
         </main>
     </div>
     @{
-        var firstName = Context.Session.GetString("FirstName");
-        var lastName = Context.Session.GetString("LastName");
-        var username = Context.Session.GetString("Username");
-        var email = Context.Session.GetString("Email");
+        var firstName = Context.Session.GetString("FirstName") ?? "";
+        var lastName = Context.Session.GetString("LastName") ?? "";
+        var username = Context.Session.GetString("Username") ?? "";
+        var email = Context.Session.GetString("Email") ?? "";
     }
-    <!-- 🌟 Styled Edit Profile Modal -->
+    <!-- 🔧 Edit Profile Modal -->
     <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content shadow-lg border-0 rounded-4">
-                <form asp-action="EditProfile" asp-controller="Account" method="post">
+            <div class="modal-content shadow-lg border-0 rounded-2">
+                <form asp-controller="Account" asp-action="EditProfile" method="post">
+                    @Html.AntiForgeryToken()
+
                     <div class="modal-header bg-primary text-white rounded-top-4">
-                        <h5 class="modal-title fw-semibold" id="editProfileModalLabel">👤 Edit Your Profile</h5>
+                        <h5 class="modal-title fw-semibold" id="editProfileModalLabel">👤 Edit Profile</h5>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
 
                     <div class="modal-body px-5 py-4">
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <label for="FirstName" class="form-label fw-semibold">🧾 First Name</label>
-                                <input name="FirstName" value="@firstName" class="form-control form-control-lg rounded-3" required />
+                                <label for="FirstName" class="form-label fw-semibold">First Name</label>
+                                <input id="FirstName" name="FirstName" class="form-control form-control-lg rounded-3" value="@firstName" required />
                             </div>
-
                             <div class="col-md-6">
-                                <label for="LastName" class="form-label fw-semibold">🧾 Last Name</label>
-                                <input name="LastName" value="@lastName" class="form-control form-control-lg rounded-3" required />
+                                <label for="LastName" class="form-label fw-semibold">Last Name</label>
+                                <input id="LastName" name="LastName" class="form-control form-control-lg rounded-3" value="@lastName" required />
                             </div>
-
                             <div class="col-md-6">
-                                <label for="Username" class="form-label fw-semibold">👤 Username</label>
-                                <input name="Username" value="@username" class="form-control form-control-lg rounded-3" required />
+                                <label for="Username" class="form-label fw-semibold">Username</label>
+                                <input id="Username" name="Username" class="form-control form-control-lg rounded-3" value="@username" required />
                             </div>
-
                             <div class="col-md-6">
-                                <label for="Email" class="form-label fw-semibold">📧 Email</label>
-                                <input name="Email" type="email" value="@email" class="form-control form-control-lg rounded-3" required />
+                                <label for="Email" class="form-label fw-semibold">Email</label>
+                                <input id="Email" name="Email" type="email" class="form-control form-control-lg rounded-3" value="@email" required />
                             </div>
                         </div>
                     </div>
 
                     <div class="modal-footer d-flex justify-content-between px-5 py-3">
-                        <button type="button" class="btn btn-outline-secondary btn-lg px-4 rounded-pill" data-bs-dismiss="modal">
-                            ❌ Cancel
-                        </button>
-                        <button type="submit" class="btn btn-success btn-lg px-4 rounded-pill">
-                            💾 Save Changes
-                        </button>
+                        <button type="button" class="btn btn-outline-secondary btn-lg px-4 rounded-pill" data-bs-dismiss="modal">❌ Cancel</button>
+                        <button type="submit" class="btn btn-success btn-lg px-4 rounded-pill">💾 Save Changes</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-
-
 
 
     <footer class="border-top footer text-muted">

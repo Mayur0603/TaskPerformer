@@ -43,9 +43,9 @@
             border: none;
         }
 
-        .btn-primary:hover {
-            background-color: #5a67d8;
-        }
+            .btn-primary:hover {
+                background-color: #5a67d8;
+            }
 
         h2 {
             color: #333;
@@ -132,7 +132,28 @@
             });
         </script>
     }
+    <script>
+        $('#editProfileForm').submit(function (e) {
+            e.preventDefault();
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("EditProfile", "Account")',
+                data: $(this).serialize(),
+                success: function (res) {
+                    if (res.success) {
+                        $('#editProfileModal').modal('hide');
+                        location.reload(); // Or dynamically update UI
+                    } else {
+                        $('#editProfileModalBody').html(res); // Re-render partial with validation errors
+                    }
+                }
+            });
+        });
+    </script>
+
 
 </body>
 </html>
-	
+
+

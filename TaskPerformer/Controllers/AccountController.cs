@@ -69,9 +69,12 @@ namespace TaskPerformer.Controllers
                 var user = await _userServices.LoginUserAsync(model);
                 if (user != null)
                 {
-                    HttpContext.Session.SetInt32("UserId", user.Id); // store in session
+                    HttpContext.Session.SetInt32("UserId", user.Id);
                     HttpContext.Session.SetString("Username", user.Username);
                     HttpContext.Session.SetString("FullName", $"{user.FirstName} {user.LastName}");
+                    HttpContext.Session.SetString("FirstName", user.FirstName ?? "");
+                    HttpContext.Session.SetString("LastName", user.LastName ?? "");
+                    HttpContext.Session.SetString("Email", user.Email ?? "");
                     return RedirectToAction("Index", "Todo");
                 }
 
@@ -89,7 +92,7 @@ namespace TaskPerformer.Controllers
             var user = await _userServices.GetUserByIdAsync(userId.Value);
             if (user == null) return NotFound();
 
-            var model = new EditViewModel
+            var model = new EditViewModel 
             {
                 Username = user.Username,
                 FirstName = user.FirstName ?? "",
@@ -102,9 +105,13 @@ namespace TaskPerformer.Controllers
 
         // POST: /Account/EditProfile
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditProfile(EditViewModel model)
         {
-            if (!ModelState.IsValid) return View(model);
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
 
             int? userId = HttpContext.Session.GetInt32("UserId");
             if (userId == null) return RedirectToAction("Login");
