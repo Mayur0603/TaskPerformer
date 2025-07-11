@@ -72,20 +72,20 @@ namespace TaskPerformer.Models
         [Required, DataType(DataType.Password)]
         public string Password { get; set; }
     }
-        
+
     public class EditViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "First Name is required")]
         public string FirstName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Last Name is required")]
         public string LastName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Username is required")]
         public string Username { get; set; }
 
-        [Required]
-        [EmailAddress]
+        [Required(ErrorMessage = "Email is required")]
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
         public string Email { get; set; }
     }
 
