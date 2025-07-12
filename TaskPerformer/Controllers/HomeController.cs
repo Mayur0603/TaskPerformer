@@ -1,32 +1,39 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using TaskPerformer.Data;
 using TaskPerformer.Models;
 
 namespace TaskPerformer.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ApplicationDbContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ApplicationDbContext context)
         {
-            _logger = logger;
+            _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Dashboard()
         {
-            return View();
-        }
+            var userId = HttpContext.Session.GetInt32("UserId");
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+            if (userId == null)
+                return RedirectToAction("Login", "Account");
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            var userTasks = await _context.todo
+                .Where(t => t.UserId == userId)
+                .ToListAsync();
+
+            var model = new DashboardViewModel
+            {
+                TotalTasks = userTasks.Count,
+                CompletedTasks = userTasks.Count(t => t.IsCompleted),
+                PendingTasks = userTasks.Count(t => !t.IsCompleted),
+                TasksDueToday = userTasks.Where(t => t.DueDate.Date == DateTime.Today).ToList()
+            };
+
+            return View(model);
         }
     }
 }

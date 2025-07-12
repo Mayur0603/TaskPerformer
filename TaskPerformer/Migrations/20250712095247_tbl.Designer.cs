@@ -12,8 +12,8 @@ using TaskPerformer.Data;
 namespace TaskPerformer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250708120903_Edituser")]
-    partial class Edituser
+    [Migration("20250712095247_tbl")]
+    partial class tbl
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

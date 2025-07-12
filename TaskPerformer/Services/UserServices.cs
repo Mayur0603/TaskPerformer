@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using TaskPerformer.Data;
-using TaskPerformer.Migrations;
 using TaskPerformer.Models;
 
 namespace TaskPerformer.Services

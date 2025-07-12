@@ -22,5 +22,12 @@ namespace TaskPerformer.Models
         public User User { get; set; }
 
     }
+    public class DashboardViewModel
+    {
+        public int TotalTasks { get; set; }
+        public int CompletedTasks { get; set; }
+        public int PendingTasks { get; set; }
+        public List<Todo> TasksDueToday { get; set; } = new List<Todo>();
+    }
 }
     

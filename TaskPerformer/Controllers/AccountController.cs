@@ -69,10 +69,15 @@ namespace TaskPerformer.Controllers
                 var user = await _userServices.LoginUserAsync(model);
                 if (user != null)
                 {
-                    HttpContext.Session.SetInt32("UserId", user.Id); // store in session
+                    HttpContext.Session.SetInt32("UserId", user.Id);
                     HttpContext.Session.SetString("Username", user.Username);
                     HttpContext.Session.SetString("FullName", $"{user.FirstName} {user.LastName}");
-                    return RedirectToAction("Index", "Todo");
+                    HttpContext.Session.SetString("Email", user.Email);
+                    HttpContext.Session.SetString("FirstName", user.FirstName ?? "");
+                    HttpContext.Session.SetString("LastName", user.LastName ?? "");
+
+                    // Redirect to dashboard or any page
+                    return RedirectToAction("Dashboard", "Home");
                 }
 
                 ModelState.AddModelError("", "Invalid username or password.");

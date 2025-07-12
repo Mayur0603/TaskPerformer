@@ -47,9 +47,10 @@
        asp-action="Index" asp-route-tabfilter="Future">📅 Future</a>
 </div>
 
-
-
-
+<!-- Dashboard Stats -->
+<div class="row mb-4">
+    <!-- Cards for Total, Completed, Pending -->
+</div>
 
 <table class="table table-hover table-striped shadow-sm border rounded text-center align-middle">
     <thead class="table-dark">
@@ -199,6 +200,9 @@
         }
     </tbody>
 </table>
+
+<a href="@Url.Action("Dashboard", "Home")" class="btn btn-primary">Back to Dashboard</a>
+
 
 @section Scripts {
     <script>
